@@ -25,7 +25,7 @@ on run {input, parameters}
 		end tell
 	end if
 
-	-- focus kitty (and start if not already started)
+	-- focus kitty (and start if not already running)
 	tell application "kitty" to activate
 
 	-- enter command as keystrokes
