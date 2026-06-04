@@ -19,15 +19,14 @@ on run {input, parameters}
 	end if
 
 	-- start kitty terminal
-	if not is_running("kitty") then
-		tell application "kitty"
-			activate
-		end tell
-	else
+	if is_running("kitty") then
 		tell application "System Events" to tell process "kitty"
 			click menu item "New OS Window" of menu 1 of menu bar item "Shell" of menu bar 1
 		end tell
 	end if
+
+	-- focus kitty (and start if not already started)
+	tell application "kitty" to activate
 
 	-- enter command as keystrokes
 	tell application "System Events"
