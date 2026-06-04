@@ -18,7 +18,7 @@ on run {input, parameters}
 		set cmd to "nvim \"" & filePath & "\""
 	end if
 
-	-- start kitty terminal
+	-- open new kitty window if kitty is already running
 	if is_running("kitty") then
 		tell application "System Events" to tell process "kitty"
 			click menu item "New OS Window" of menu 1 of menu bar item "Shell" of menu bar 1
