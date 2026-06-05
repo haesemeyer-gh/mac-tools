@@ -4,18 +4,17 @@
  * codeberg.org/haesemeyer/mac-tools
  *)
 
--- function to check if applicatiton is currently running
-on is_running(appName)
-	tell application "System Events" to (name of processes) contains appName
-end is_running
-
 on run {input, paramterets}
 
 	-- check if firefox is already running
-	set already_running to is_running("firefox")
+	set already_running to (application "Firefox" is running)
 
 	-- focus firefox (and start if not already running)
-	tell application "firefox" to activate
+	-- weird id syntax is required FOR THIS APPLICATION,
+	-- otherwise it starts firefox even if not already running
+	-- BEFORE checking wether or not it is running, causing it to
+	-- open a second window on first launch...
+	tell application id (id of application "Firefox") to activate
 
 	-- if firefox was already running, send keystroke to open new window
 	if already_running then
