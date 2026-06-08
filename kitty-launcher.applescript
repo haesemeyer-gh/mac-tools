@@ -4,15 +4,10 @@
  * codeberg.org/haesemeyer/mac-tools
  *)
 
--- function to check if applicatiton is currently running
-on is_running(appName)
-	tell application "System Events" to (name of processes) contains appName
-end is_running
-
-on run {input, paramterets}
+on run
 
 	-- check if kitty is already running
-	set already_running to is_running("kitty")
+	set already_running to (application "kitty" is running)
 
 	-- focus kitty (and start if not already running)
 	tell application "kitty" to activate

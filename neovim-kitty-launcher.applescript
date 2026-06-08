@@ -4,35 +4,45 @@
  * codeberg.org/haesemeyer/mac-tools
  *)
 
--- function to check if applicatiton is currently running
-on is_running(appName)
-	tell application "System Events" to (name of processes) contains appName
-end is_running
+-- function to open a new kitty window and run a command
+on run_kitty(cmd)
 
-on run {input, parameters}
+		-- open new kitty window if kitty is already running
+		if application "kitty" is running then
+			tell application "System Events" to tell process "kitty"
+				click menu item "New OS Window" of menu 1 of menu bar item "Shell" of menu bar 1
+			end tell
+		end if
 
-	-- command definition
-	set cmd to "nvim"
-	if input is not {} then
-		set filePath to POSIX path of input
-		set cmd to "nvim \"" & filePath & "\""
-	end if
+		-- focus kitty (and start if not already running)
+		tell application "kitty" to activate
 
-	-- open new kitty window if kitty is already running
-	if is_running("kitty") then
-		tell application "System Events" to tell process "kitty"
-			click menu item "New OS Window" of menu 1 of menu bar item "Shell" of menu bar 1
+		-- enter command as keystrokes
+		tell application "System Events"
+			keystroke cmd
+			key code 36
 		end tell
-	end if
 
-	-- focus kitty (and start if not already running)
-	tell application "kitty" to activate
+end run_kitty
 
-	-- enter command as keystrokes
-	tell application "System Events"
-		keystroke cmd
-		key code 36
-	end tell
+-- file handler
+on open theFiles
+	repeat with f in theFiles
 
+		-- command definition
+		set cmd to "nvim"
+		if f is not {} then
+			set filePath to POSIX path of f
+			set cmd to "nvim \"" & filePath & "\""
+		end if
+
+		run_kitty(cmd)
+
+	end repeat
+end open
+
+-- handler for running without opening files
+on run
+	run_kitty("nvim")
 end run
 

@@ -4,7 +4,7 @@
  * codeberg.org/haesemeyer/mac-tools
  *)
 
-on run {input, paramterets}
+on run
 
 	-- check if firefox is already running
 	set already_running to (application "Firefox" is running)
