@@ -24,7 +24,7 @@ Once installed, you must grant permissions for some of the apps to do things lik
 
 ## Examples
 
-![Launching the Firefox Launcher Tool from Spotlight](.docs/spotlight.png)
+![Launching the Firefox Launcher Tool from Spotlight](./docs/spotlight.png)
 
 ![Using the Neovim Kitty Launcher Tool as the default Editor for README.md](./docs/startwith.png)
 
